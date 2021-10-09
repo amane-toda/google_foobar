@@ -30,5 +30,5 @@ def solution(n):
     num_solutions = num_staircase(n,num_solutions)
     return num_solutions
 
-test = solution(100)        
+test = solution(200)        
 print("{} is the answer".format(test))
