@@ -1,8 +1,6 @@
-import time
-
 def solution(n):
     num_solutions = 0
-    stored_answers = []
+    # stored_answers = []
 
     # def num_staircase(num_bricks):
     #     # num_answers = 0
@@ -24,22 +22,28 @@ def solution(n):
     #             # return num_staircase(subset,total_answers)
 
     def combinations_with_end_step(num_bricks,furthest_step,total_answers):
-        print("Finding how many staircases can be built with {} bricks left, given the furthest step is of height {}".format(num_bricks,furthest_step))
+        # print("Finding how many staircases can be built with {} bricks left, given the furthest step is of height {}".format(num_bricks,furthest_step))
         if num_bricks <= furthest_step:
-            print("Impossible")
+            # print("Impossible")
             return total_answers        
         else:            
             total_answers += 1
-            print("Solution possible, now total answers is {}".format(total_answers))
+            # print("Solution possible, now total answers is {}".format(total_answers))
             for next_step in range(furthest_step+1,num_bricks-furthest_step):
-                print("From {} bricks, trying to build a step of {}".format(num_bricks,next_step))
+                # print("From {} bricks, trying to build a step of {}".format(num_bricks,next_step))
                 total_answers = combinations_with_end_step(num_bricks-next_step,next_step,total_answers)
             return total_answers
             # return sum(combinations_with_end_step(num_bricks-next_step,next_step,total_answers) for next_step in range(furthest_step+1,num_bricks-furthest_step))
     
-    final_step = 2
-    num_solutions = combinations_with_end_step(n-final_step,final_step,0)  
-    return num_solutions
+    def num_staircase(num_starting_bricks,staircase_solutions):
+        # print("Finding out how many staircases can be built from {} bricks\n".format(num_starting_bricks))
 
-test = solution(9)        
-print("{} is the answer".format(test))
+        for first_step in range(1,n):
+            staircase_solutions += combinations_with_end_step(num_starting_bricks - first_step,first_step,0)
+            # print("From {} starting step, it's possible to create {} staircases from the remaining {} bricks\n".format(first_step,staircase_solutions,num_starting_bricks-first_step))
+        return staircase_solutions
+
+    # final_step = 2
+    # num_solutions = combinations_with_end_step(n-final_step,final_step,0)  
+    num_solutions = num_staircase(n,num_solutions)
+    return num_solutions
