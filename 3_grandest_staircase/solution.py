@@ -16,13 +16,13 @@ def solution(n):
             # return sum(num_combinations_given_end_step(num_bricks-next_step,next_step,total_answers) for next_step in range(furthest_step+1,num_bricks-furthest_step))
     
     def num_staircase(num_starting_bricks,staircase_solutions):
-        # print("Finding out how many staircases can be built from {} bricks\n".format(num_starting_bricks))
+        print("Finding out how many staircases can be built from {} bricks\n".format(num_starting_bricks))
         for first_step in range(1,n//2 + 1):
             new_solutions = 0
             new_solutions += num_combinations_given_end_step(num_starting_bricks - first_step,first_step,0)
             
             staircase_solutions += new_solutions
-            # print("From {} starting step, it's possible to create {} staircases from the remaining {} bricks. There are now {} total solutions\n".format(first_step,new_solutions,num_starting_bricks-first_step,staircase_solutions))
+            print("From {} starting step, it's possible to create {} staircases from the remaining {} bricks. There are now {} total solutions\n".format(first_step,new_solutions,num_starting_bricks-first_step,staircase_solutions))
         return staircase_solutions
 
     # final_step = 2
