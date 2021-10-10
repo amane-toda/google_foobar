@@ -2,7 +2,7 @@ def solution(n):
     num_solutions = 0
 
     def num_combinations_given_end_step(num_bricks,furthest_step,total_answers):
-        # print("Finding how many staircases can be built with {} bricks left, given the furthest step is of height {}".format(num_bricks,furthest_step))
+        print("Finding how many staircases can be built with {} bricks left, given the furthest step is of height {}".format(num_bricks,furthest_step))
         if num_bricks <= furthest_step: #Cannot build as steps must be larger than the previous one
             # print("Impossible")
             return total_answers        
@@ -13,10 +13,9 @@ def solution(n):
                 # print("From {} bricks, trying to build a step of {}".format(num_bricks,next_step))
                 total_answers = num_combinations_given_end_step(num_bricks-next_step,next_step,total_answers)
             return total_answers
-            # return sum(num_combinations_given_end_step(num_bricks-next_step,next_step,total_answers) for next_step in range(furthest_step+1,num_bricks-furthest_step))
     
     def num_staircase(num_starting_bricks,staircase_solutions):
-        print("Finding out how many staircases can be built from {} bricks\n".format(num_starting_bricks))
+        print("Finding out how many staircases can be built from {} bricks".format(num_starting_bricks))
         for first_step in range(1,n//2 + 1):
             new_solutions = 0
             new_solutions += num_combinations_given_end_step(num_starting_bricks - first_step,first_step,0)
@@ -30,5 +29,5 @@ def solution(n):
     num_solutions = num_staircase(n,num_solutions)
     return num_solutions
 
-test = solution(200)        
+test = solution(20)        
 print("{} is the answer".format(test))
