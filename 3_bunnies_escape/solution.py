@@ -80,30 +80,32 @@ def solution(map):
     map_rows = len(map)
     map_cols = len(map[0])
     min_possible_moves = map_rows + map_cols - 1
-    print("{} has {} rows and {} columns. The minimum possible moves for the solution is {}".format(map, map_rows, map_cols,min_possible_moves))
+    # print("{} has {} rows and {} columns. The minimum possible moves for the solution is {}".format(map, map_rows, map_cols,min_possible_moves))
     min_moves = 0
 
     #Find solution, if no walls are removed
     new_solution = find_solutions(map,map_rows,map_cols) #Find solution, if no walls are removed
     if new_solution > 0: #is solvable
-        print("From map {}, found solution {}".format(map,new_solution))
+        # print("From map {}, found solution {}".format(map,new_solution))
         min_moves = new_solution
     
     #Find solution, if walls are not removed
-    map_copy = deep_copy_map(map)
+    # map_copy = deep_copy_map(map)
     #Iterate through every row and column to find every instance of a wall
     for row in range(map_rows):
         for col in range(map_cols):
+            map_copy = deep_copy_map(map)
             if map[row][col] == 1: #Is currently a wall
                 map_copy[row][col] = 0 # Remove the wall
+                # print("Map with removed wall is {}".format(map_copy,new_solution))
                 new_solution = find_solutions(map_copy,map_rows,map_cols) #Find the solution
 
                 if new_solution > 0 and (new_solution < min_moves or min_moves == 0): #If a solution is found and the new solution is shorter than the existing one, or existing one doesn't exist
-                    print("From map {}, found solution {}".format(map_copy,new_solution))
+                    # print("From map {}, found solution {}".format(map_copy,new_solution))
                     min_moves = new_solution
                 
-                if min_moves == min_possible_moves: #Shortest solution found
-                    return min_moves
+                # if min_moves == min_possible_moves: #Shortest solution found
+                    # return min_moves
     return min_moves
 
     
