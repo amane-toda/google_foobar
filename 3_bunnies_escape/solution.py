@@ -115,22 +115,21 @@ test_case_2 = [[0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 1, 0], [0, 0, 0, 0, 0, 0], [0, 1
 
 # num_moves = solution(test_case_1)
 # num_moves = solution(test_case_2)
-print(num_moves)
+# print(num_moves)
 
 def random_test_case_generator(num_rows,num_cols):
     generated_map = []
-    for i in range(20):
+    for i in range(num_cols):
         temp_list = []
-        for j in range(20):
+        for j in range(num_rows):
             rand = random.uniform(0,1)
             temp_list.append(int(round(rand)))
         generated_map.append(temp_list)
     return generated_map
 
-test_case = random_test_case_generator(20,20)
-
-print(test_case)
-
-
+# Check if uneven map causes issues
+# test_case = random_test_case_generator(3,4)
+# test_case = [[0,1,0],[1,1,0],[1,1,0],[1,1,0]] #Test case that is unfairly balanced, to test row and column interpretation is accurate
+test_case = [[0,1,0,1],[1,1,0,1],[0,0,0,1],[0,1,1,1],[0,0,0,0]] #Test case that has two different ways to solve my removing a wall, but one is better than the other
 num_moves = solution(test_case)
-
+print(num_moves)
