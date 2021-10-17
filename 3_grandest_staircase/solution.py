@@ -6,19 +6,20 @@ def solution(n):
         current = (num_bricks,furthest_step)
         current_answers = total_answers
 
-        # print("Finding how many staircases can be built with {} bricks left, given the furthest step is of height {}. So far got {} answers".format(num_bricks,furthest_step,total_answers))
+        print("Finding how many staircases can be built with {} bricks left, given the furthest step is of height {}. So far got {} answers".format(num_bricks,furthest_step,total_answers))
         if current in memo_solution:
             # print("Already have this solution {}".format(memo_solution[current]))
             total_answers += memo_solution[current]
             return total_answers
         elif num_bricks <= furthest_step: #Cannot build as steps must be larger than the previous one
-        # if num_bricks <= furthest_step: #Cannot build as steps must be larger than the previous one
             # print("Impossible")
             return total_answers               
         else:            
             total_answers += 1 #Can always build a step that is num_bricks tall
             # print("Solution possible, now total answers is {}".format(total_answers))
-            for next_step in range(furthest_step+1,num_bricks-furthest_step): #Incrementally build the next step, reducing number of total bricks accordingly.
+            
+            # Incrementally build the next shortest possible step, reducing number of total bricks accordingly.
+            for next_step in range(furthest_step+1,num_bricks-furthest_step): 
                 # print("From {} bricks, trying to build a step of {}".format(num_bricks,next_step))
                 total_answers = num_combinations_given_end_step(num_bricks-next_step,next_step,total_answers,memo_solution)
             new_answers = total_answers - current_answers
