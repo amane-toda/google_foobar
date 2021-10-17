@@ -1,7 +1,5 @@
-import random
-
 def solution(map):
-    #Map is formatted with map[n][m] being wall at row n and column m    
+    #Map is formatted with map[n][m] being the space at row n and column m    
     def check_position(current_map,row,col):
         is_invalid = (
             row > len(current_map)
@@ -89,23 +87,18 @@ def solution(map):
         # print("From map {}, found solution {}".format(map,new_solution))
         min_moves = new_solution
     
-    #Find solution, if walls are not removed
-    # map_copy = deep_copy_map(map)
-    #Iterate through every row and column to find every instance of a wall
+    #Iterate through every row and column to find every instance of a wall, and remove to find solution
     for row in range(map_rows):
         for col in range(map_cols):
             map_copy = deep_copy_map(map)
             if map[row][col] == 1: #Is currently a wall
                 map_copy[row][col] = 0 # Remove the wall
                 # print("Map with removed wall is {}".format(map_copy,new_solution))
-                new_solution = find_solutions(map_copy,map_rows,map_cols) #Find the solution
+                new_solution = find_solutions(map_copy,map_rows,map_cols) #Find the solution with edited map
 
                 if new_solution > 0 and (new_solution < min_moves or min_moves == 0): #If a solution is found and the new solution is shorter than the existing one, or existing one doesn't exist
                     # print("From map {}, found solution {}".format(map_copy,new_solution))
                     min_moves = new_solution
-                
-                # if min_moves == min_possible_moves: #Shortest solution found
-                    # return min_moves
     return min_moves
 
     
