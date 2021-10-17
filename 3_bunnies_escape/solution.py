@@ -97,6 +97,7 @@ test_case_2 = [[0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 1, 0], [0, 0, 0, 0, 0, 0], [0, 1
 # num_moves = solution(test_case_2)
 # print(num_moves)
 
+import random
 def random_test_case_generator(num_rows,num_cols):
     generated_map = []
     for i in range(num_cols):
