@@ -9,7 +9,6 @@ def solution(dimensions, your_position, trainer_position, distance):
 
         start_to_target = target_position -  start_position
         target_to_wall = wall_position - target_position
-        start_to_wall = wall_position - start_position
 
         A = 0
         B = 0
@@ -89,7 +88,7 @@ def solution(dimensions, your_position, trainer_position, distance):
     
                 C +=1
             elif start_to_target < 0:
-                temp_shot_direction = - start_to_target - 2 * A * start_to_wall - 2 * B * target_position - 2 * C * target_to_wall
+                temp_shot_direction = -start_to_target + 2 * A * start_to_wall + 2 * B * target_position + 2 * C * target_to_wall
                 # print("For A as {}, B as {} and C as {} shot direction is {}".format(A,B,C,temp_shot_direction))
                 if abs(temp_shot_direction) > max_distance:
                     max_distance_exceeded =True
@@ -99,7 +98,7 @@ def solution(dimensions, your_position, trainer_position, distance):
         
                 B += 1
     
-                temp_shot_direction = - start_to_target - 2 * A * start_to_wall - 2 * B * target_position - 2 * C * target_to_wall
+                temp_shot_direction = -start_to_target + 2 * A * start_to_wall + 2 * B * target_position + 2 * C * target_to_wall
                 # print("For A as {}, B as {} and C as {} shot direction is {}".format(A,B,C,temp_shot_direction))
                 if abs(temp_shot_direction) > max_distance:
                     max_distance_exceeded =True
@@ -127,28 +126,37 @@ def solution(dimensions, your_position, trainer_position, distance):
 
     # print("Trainer at {} and dimensions of {}. The distance to wall from trainer is ({},{})".format(trainer_position,dimensions, x_trainer_to_wall,y_trainer_to_wall))
 
-    #Find all x shot directions   
-    if x_you_to_trainer >= 0:
-        x_shot_towards_target_directions = shot_directions_towards_target(x_you,x_trainer,x_wall,distance)
-        print("All possible x shot directions in direction towards target are {}".format(x_shot_towards_target_directions))
-        x_shot_away_from_target_directions = shot_directions_away_from_target(x_you,x_trainer,x_wall,distance)
-        print("All possible x shot directions in direction away from target are {}".format(x_shot_away_from_target_directions))
-    else:
-        x_shot_towards_target_directions = shot_directions_away_from_target(x_you,x_trainer,x_wall,distance)
-        print("All possible x shot directions in direction towards target are {}".format(x_shot_towards_target_directions))
-        x_shot_away_from_target_directions = shot_directions_towards_target(x_you,x_trainer,x_wall,distance)
-        print("All possible x shot directions in direction away from target are {}".format(x_shot_away_from_target_directions))
+    x_shot_towards_target_directions = shot_directions_towards_target(x_you,x_trainer,x_wall,distance)
+    print("All possible x shot directions in direction towards target are {}".format(x_shot_towards_target_directions))
+    x_shot_away_from_target_directions = shot_directions_away_from_target(x_you,x_trainer,x_wall,distance)
+    print("All possible x shot directions in direction away from target are {}".format(x_shot_away_from_target_directions))
 
-    if y_you_to_trainer >= 0:
-        y_shot_towards_target_directions = shot_directions_towards_target(y_you,y_trainer,y_wall,distance)
-        print("All possible y shot directions in direction towards target are {}".format(y_shot_towards_target_directions))
-        y_shot_away_from_target_directions = shot_directions_away_from_target(y_you,y_trainer,y_wall,distance)
-        print("All possible y shot directions in direction away from target are {}".format(y_shot_away_from_target_directions))
-    else:
-        y_shot_towards_target_directions = shot_directions_away_from_target(y_you,y_trainer,y_wall,distance)
-        print("All possible y shot directions in direction towards target are {}".format(y_shot_towards_target_directions))
-        y_shot_away_from_target_directions = shot_directions_towards_target(y_you,y_trainer,y_wall,distance)
-        print("All possible y shot directions in direction away from target are {}".format(y_shot_away_from_target_directions))
+    y_shot_towards_target_directions = shot_directions_towards_target(y_you,y_trainer,y_wall,distance)
+    print("All possible y shot directions in direction towards target are {}".format(y_shot_towards_target_directions))
+    y_shot_away_from_target_directions = shot_directions_away_from_target(y_you,y_trainer,y_wall,distance)
+    print("All possible y shot directions in direction away from target are {}".format(y_shot_away_from_target_directions))
+    # #Find all x shot directions   
+    # if x_you_to_trainer >= 0:
+    #     x_shot_towards_target_directions = shot_directions_towards_target(x_you,x_trainer,x_wall,distance)
+    #     print("All possible x shot directions in direction towards target are {}".format(x_shot_towards_target_directions))
+    #     x_shot_away_from_target_directions = shot_directions_away_from_target(x_you,x_trainer,x_wall,distance)
+    #     print("All possible x shot directions in direction away from target are {}".format(x_shot_away_from_target_directions))
+    # else:
+    #     x_shot_towards_target_directions = shot_directions_away_from_target(x_you,x_trainer,x_wall,distance)
+    #     print("All possible x shot directions in direction towards target are {}".format(x_shot_towards_target_directions))
+    #     x_shot_away_from_target_directions = shot_directions_towards_target(x_you,x_trainer,x_wall,distance)
+    #     print("All possible x shot directions in direction away from target are {}".format(x_shot_away_from_target_directions))
+
+    # if y_you_to_trainer >= 0:
+    #     y_shot_towards_target_directions = shot_directions_towards_target(y_you,y_trainer,y_wall,distance)
+    #     print("All possible y shot directions in direction towards target are {}".format(y_shot_towards_target_directions))
+    #     y_shot_away_from_target_directions = shot_directions_away_from_target(y_you,y_trainer,y_wall,distance)
+    #     print("All possible y shot directions in direction away from target are {}".format(y_shot_away_from_target_directions))
+    # else:
+    #     y_shot_towards_target_directions = shot_directions_away_from_target(y_you,y_trainer,y_wall,distance)
+    #     print("All possible y shot directions in direction towards target are {}".format(y_shot_towards_target_directions))
+    #     y_shot_away_from_target_directions = shot_directions_towards_target(y_you,y_trainer,y_wall,distance)
+    #     print("All possible y shot directions in direction away from target are {}".format(y_shot_away_from_target_directions))
 
     #Count number of solutions
     shots = []
@@ -225,19 +233,21 @@ def solution(dimensions, your_position, trainer_position, distance):
     
     num_shots = len(shots)
     print("\n{} possible shots after all possible combos are {}".format(num_shots,shots))
+
+    return num_shots
             
 
 #test case 1
-dim = [3,2]
-your_pos = [1,1]
-target_pos = [2,1]
-max_dist = 4
+# dim = [3,2]
+# your_pos = [1,1]
+# target_pos = [2,1]
+# max_dist = 4
 
 # #test case 2
-# dim = [300,275]
-# your_pos = [150,150]
-# target_pos = [185,100]
-# max_dist = 500
+dim = [300,275]
+your_pos = [150,150]
+target_pos = [185,100]
+max_dist = 500
 
 
 solution(dim,your_pos,target_pos,max_dist)
