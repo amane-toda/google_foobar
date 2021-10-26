@@ -206,12 +206,6 @@ def solution(dimensions, your_position, trainer_position, distance):
 
     shots_exclude_corners = []
 
-    # #Test if corner exclusion is working
-    # shots.append([150,125])
-    # shots.append([-150,-150])
-    # shots.append([-150,125])
-    # shots.append([150,-150])
-    # shots.append([450,125])
     #Exclude cases of hitting a corner of the room
     for shot in shots:
         x_shot = abs(shot[0] + x_you)
