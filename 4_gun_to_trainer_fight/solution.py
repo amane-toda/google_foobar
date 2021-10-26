@@ -138,12 +138,12 @@ def solution(dimensions, your_position, trainer_position, distance):
         for y_shot in y_shot_towards_target_directions:
             y_shot_index = y_shot_towards_target_directions.index(y_shot)
 
-            valid_index_combinations = (
-                x_shot_index == 0 and y_shot_index == 0
+            is_valid_direction = (
+                x_shot_index == 0 and y_shot_index == 0 #The first shot is always directly at the target, so can have x_shot or y_shot = 0
                 or x_shot != 0 and y_shot != 0
             )
 
-            if valid_index_combinations is True:
+            if is_valid_direction is True:
                 total_distance = calc_hypotenuse(x_shot,y_shot)
                 if total_distance <= distance:
                     shots.append([x_shot,y_shot])
@@ -156,12 +156,12 @@ def solution(dimensions, your_position, trainer_position, distance):
         for y_shot in y_shot_away_from_target_directions:
             y_shot_index = y_shot_away_from_target_directions.index(y_shot)
 
-            valid_index_combinations = (
+            is_valid_direction = (
                 x_shot != 0 and y_shot != 0
                 # or x_shot_index >0 and y_shot_index >0 
             )
 
-            if valid_index_combinations is True:
+            if is_valid_direction is True:
                 total_distance = calc_hypotenuse(x_shot,y_shot)
                 if total_distance <= distance:
                     shots.append([x_shot,y_shot])
@@ -174,12 +174,12 @@ def solution(dimensions, your_position, trainer_position, distance):
         for y_shot in y_shot_towards_target_directions:
             y_shot_index = y_shot_towards_target_directions.index(y_shot)
 
-            valid_index_combinations = (
+            is_valid_direction = (
                 x_shot != 0 and y_shot != 0
                 # or x_shot_index >0 and y_shot_index >0 
             )
 
-            if valid_index_combinations is True:
+            if is_valid_direction is True:
                 total_distance = calc_hypotenuse(x_shot,y_shot)
                 if total_distance <= distance:
                     shots.append([x_shot,y_shot])
@@ -194,12 +194,12 @@ def solution(dimensions, your_position, trainer_position, distance):
         for y_shot in y_shot_away_from_target_directions:
             y_shot_index = y_shot_away_from_target_directions.index(y_shot)
 
-            valid_index_combinations = (
+            is_valid_direction = (
                 x_shot != 0 and y_shot != 0
                 # or x_shot_index >0 and y_shot_index >0 
             )
 
-            if valid_index_combinations is True:
+            if is_valid_direction is True:
                 total_distance = calc_hypotenuse(x_shot,y_shot)
                 if total_distance <= distance:
                     shots.append([x_shot,y_shot])
