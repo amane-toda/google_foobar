@@ -14,8 +14,8 @@ def solution(dimensions, your_position, trainer_position, distance):
         B = 0
 
         max_distance_exceeded = False
-        while max_distance_exceeded == False:
-            if start_to_target >= 0:
+        while max_distance_exceeded == False: 
+            if start_to_target >= 0: #Shooting in the positive direction of the axes
                 temp_shot_direction = start_to_target + 2 * A * target_to_wall + 2 * B * target_position
                 # print("For A as {} and B as {}, shot direction is {}".format(A,B,temp_shot_direction))
                 if abs(temp_shot_direction) > max_distance:
@@ -34,7 +34,7 @@ def solution(dimensions, your_position, trainer_position, distance):
         
                 B += 1
 
-            elif start_to_target < 0:
+            elif start_to_target < 0: #Shooting in the negative direction of the axes
                 temp_shot_direction = start_to_target - 2 * A * target_position - 2 * B * target_to_wall
                 # print("For A as {} and B as {}, shot direction is {}".format(A,B,temp_shot_direction))
                 if abs(temp_shot_direction) > max_distance:
@@ -68,7 +68,7 @@ def solution(dimensions, your_position, trainer_position, distance):
 
         max_distance_exceeded = False
         while max_distance_exceeded == False:
-            if start_to_target  >= 0:
+            if start_to_target  >= 0: #Shooting in the negative direction of the axes
                 temp_shot_direction = - start_to_target - 2 * A * start_position - 2 * B * target_to_wall - 2 * C * target_position
                 # print("For A as {}, B as {} and C as {} shot direction is {}".format(A,B,C,temp_shot_direction))
                 if abs(temp_shot_direction) > max_distance:
@@ -87,7 +87,7 @@ def solution(dimensions, your_position, trainer_position, distance):
                 shot_directions.append(temp_shot_direction)
     
                 C +=1
-            elif start_to_target < 0:
+            elif start_to_target < 0: #Shooting in the positive direction of the axes
                 temp_shot_direction = -start_to_target + 2 * A * start_to_wall + 2 * B * target_position + 2 * C * target_to_wall
                 # print("For A as {}, B as {} and C as {} shot direction is {}".format(A,B,C,temp_shot_direction))
                 if abs(temp_shot_direction) > max_distance:
@@ -116,8 +116,6 @@ def solution(dimensions, your_position, trainer_position, distance):
     y_you = your_position[1]
     x_wall = dimensions[0]
     y_wall = dimensions[1]
-    x_you_to_trainer = x_trainer - x_you
-    y_you_to_trainer = y_trainer - y_you
     
     # print("I am at {}, trainer at {}, and the room has size {}. The distance to target is ({},{})\n".format(your_position,trainer_position, dimensions,x_you_to_trainer,y_you_to_trainer))
 
