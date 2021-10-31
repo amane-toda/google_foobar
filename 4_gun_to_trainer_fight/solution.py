@@ -1,4 +1,3 @@
-# import math
 def solution(dimensions, your_position, trainer_position, distance):
     def calc_hypotenuse(length,width):
         #Pythagorus theorem
@@ -117,120 +116,67 @@ def solution(dimensions, your_position, trainer_position, distance):
     x_wall = dimensions[0]
     y_wall = dimensions[1]
     
-    # print("I am at {}, trainer at {}, and the room has size {}. The distance to target is ({},{})\n".format(your_position,trainer_position, dimensions,x_you_to_trainer,y_you_to_trainer))
+    # print("I am at {}, trainer at {}, and the room has size {}.\n".format(your_position,trainer_position, dimensions))
 
-    x_shot_towards_target_directions = shot_directions_towards_target(x_you,x_trainer,x_wall,distance)
-    # print("All possible x shot directions in direction towards target are {}".format(x_shot_towards_target_directions))
+    #Calculate all shot directions
+    x_shot_towards_target_directions = shot_directions_towards_target(x_you,x_trainer,x_wall,distance)    
     x_shot_away_from_target_directions = shot_directions_away_from_target(x_you,x_trainer,x_wall,distance)
-    # print("All possible x shot directions in direction away from target are {}".format(x_shot_away_from_target_directions))
-
     y_shot_towards_target_directions = shot_directions_towards_target(y_you,y_trainer,y_wall,distance)
-    # print("All possible y shot directions in direction towards target are {}".format(y_shot_towards_target_directions))
     y_shot_away_from_target_directions = shot_directions_away_from_target(y_you,y_trainer,y_wall,distance)
-    # print("All possible y shot directions in direction away from target are {}".format(y_shot_away_from_target_directions))
 
-    #Count number of solutions
+    #Combine x and y shot directions
+    x_shot_directions = x_shot_towards_target_directions + x_shot_away_from_target_directions
+    y_shot_direction = y_shot_towards_target_directions + y_shot_away_from_target_directions
+
+    #Get all possible shot combinations
+    all_shots = [[x,y] for x in x_shot_directions for y in y_shot_direction]
+
+    # Not all shots are valid
+    counter = 0
     shots = []
+    for shot in all_shots:
+        x_shot = shot[0]
+        y_shot = shot[1]
+        total_distance = calc_hypotenuse(x_shot,y_shot)
 
-    # Shots in x and y directions towards target. Any shots that require at least one reflection in one coordinate must have the other coordinate != 0
-    for x_shot in x_shot_towards_target_directions:
-        x_shot_index = x_shot_towards_target_directions.index(x_shot)
-        for y_shot in y_shot_towards_target_directions:
-            y_shot_index = y_shot_towards_target_directions.index(y_shot)
+        is_valid_shot = (
+            total_distance <= distance #Exclude if shot is too long
+            and
+            ((counter == 0) or (x_shot !=0 and y_shot !=0)) # Exclude if shot would hit myself
+        )
 
-            is_valid_direction = (
-                x_shot_index == 0 and y_shot_index == 0 #The first shot is always directly at the target, so can have x_shot or y_shot = 0
-                or x_shot != 0 and y_shot != 0
-            )
-
-            if is_valid_direction is True:
-                total_distance = calc_hypotenuse(x_shot,y_shot)
-                if total_distance <= distance:
-                    shots.append([x_shot,y_shot])
-
-    # print("Possible shots after shots towards target in both directions are {}".format(shots))
-
-     # Shots in positive x and negative y direction. Any shots require at least one reflection, so must have a non zero x and y direction
-    for x_shot in x_shot_towards_target_directions:
-        x_shot_index = x_shot_towards_target_directions.index(x_shot)
-        for y_shot in y_shot_away_from_target_directions:
-            y_shot_index = y_shot_away_from_target_directions.index(y_shot)
-
-            is_valid_direction = (
-                x_shot != 0 and y_shot != 0
-                # or x_shot_index >0 and y_shot_index >0 
-            )
-
-            if is_valid_direction is True:
-                total_distance = calc_hypotenuse(x_shot,y_shot)
-                if total_distance <= distance:
-                    shots.append([x_shot,y_shot])
-
-    # print("Possible shots after shots towards target in both directions, towards target in x & away from target in y are {}".format(shots))
-
-        # Shots in negative x and positive y direction. Any shots require at least one reflection, so must have a non zero x and y direction
-    for x_shot in x_shot_away_from_target_directions:
-        x_shot_index = x_shot_away_from_target_directions.index(x_shot)
-        for y_shot in y_shot_towards_target_directions:
-            y_shot_index = y_shot_towards_target_directions.index(y_shot)
-
-            is_valid_direction = (
-                x_shot != 0 and y_shot != 0
-                # or x_shot_index >0 and y_shot_index >0 
-            )
-
-            if is_valid_direction is True:
-                total_distance = calc_hypotenuse(x_shot,y_shot)
-                if total_distance <= distance:
-                    shots.append([x_shot,y_shot])
-
-
-    # print("Possible shots after shots towards target in both directions, towards target in x & away from target in y, away from target in x & towards target in y are {}".format(shots))
-
-
-    # Shots in negative x and negative y direction. Any shots require at least one reflection, so must have a non zero x and y direction
-    for x_shot in x_shot_away_from_target_directions:
-        x_shot_index = x_shot_away_from_target_directions.index(x_shot)
-        for y_shot in y_shot_away_from_target_directions:
-            y_shot_index = y_shot_away_from_target_directions.index(y_shot)
-
-            is_valid_direction = (
-                x_shot != 0 and y_shot != 0
-                # or x_shot_index >0 and y_shot_index >0 
-            )
-
-            if is_valid_direction is True:
-                total_distance = calc_hypotenuse(x_shot,y_shot)
-                if total_distance <= distance:
-                    shots.append([x_shot,y_shot])
-
-    shots_exclude_corners = []
-
-    #Exclude cases of hitting a corner of the room
-    for shot in shots:
-        x_shot = abs(shot[0] + x_you)
-        y_shot = abs(shot[1] + y_you)
-
-        # print("For shot {}, starting at {} in room {}".format(shot,your_position, dimensions))
-
-        while x_shot > 0:
-            x_shot = x_shot - x_wall
-        while y_shot > 0:
-            y_shot = y_shot - y_wall
-
-        # print("Relative shot is ({},{})".format(x_shot,y_shot))
-
-        if x_shot != 0 and y_shot !=0:
-            shots_exclude_corners.append(shot)
-
+        if is_valid_shot is True:
+            shots.append(shot)
+        counter +=1
     
-    num_shots = len(shots_exclude_corners)
-    print("\n{} possible shots after all possible combos are {}".format(num_shots,shots_exclude_corners))
+
+    # # Exclude shots that will hit corners (guaranteed to hit myself0)
+    # shots_exclude_corners = []
+    # #Exclude cases of hitting a corner of the room
+    # for shot in shots:
+    #     x_shot = abs(shot[0] + x_you)
+    #     y_shot = abs(shot[1] + y_you)
+
+    #     # print("For shot {}, starting at {} in room {}".format(shot,your_position, dimensions))
+
+    #     while x_shot > 0:
+    #         x_shot = x_shot - x_wall
+    #     while y_shot > 0:
+    #         y_shot = y_shot - y_wall
+
+    #     # print("Relative shot is ({},{})".format(x_shot,y_shot))
+
+    #     if x_shot != 0 and y_shot !=0:
+    #         shots_exclude_corners.append(shot)    
+    # num_shots = len(shots_exclude_corners)
+    
+    num_shots = len(shots)
+    # print("\n{} possible shots after all possible combos are {}".format(num_shots,shots_exclude_corners))
 
     return num_shots
             
 
-#test case 1
+# # test case 1
 # dim = [3,2]
 # your_pos = [1,1]
 # target_pos = [2,1]
@@ -243,10 +189,16 @@ def solution(dimensions, your_position, trainer_position, distance):
 # max_dist = 500
 
 # #test case 3
+# dim = [5,5]
+# your_pos = [1,1]
+# target_pos = [4,4]
+# max_dist = 5
+
+#test case 4
 dim = [5,5]
 your_pos = [1,1]
-target_pos = [4,4]
-max_dist = 5
+target_pos = [2,1]
+max_dist = 10000
 
 
 
